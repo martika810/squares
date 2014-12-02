@@ -102,7 +102,7 @@ public class ImageMatrix {
 		
 	}
 	
-	private int getVectorPosition(int numRow,int numCol,int matrixDim){
+	public static int getVectorPosition(int numRow,int numCol,int matrixDim){
 		return numRow*matrixDim+numCol;
 	}
 	

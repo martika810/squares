@@ -20,6 +20,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Animation.AnimationListener;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
+import android.widget.GridView;
 import android.widget.ImageView;
 
 public class SquarePageFragment extends Fragment implements OnTouchListener, AnimationListener{
@@ -48,10 +50,12 @@ public class SquarePageFragment extends Fragment implements OnTouchListener, Ani
 	private int lastSquareTouched;
 	private int lastViewTouched;
 	private String lastMove;
+	private ImageAdapter gridAdapter;
 	
 	public SquarePageFragment(){
 		
 	}
+	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -75,135 +79,69 @@ public class SquarePageFragment extends Fragment implements OnTouchListener, Ani
 	}
 	
 	private void populateMatrix(){
+		
+		GridView imageGrid=(GridView)getView().findViewById(R.id.imageGrid);
+		
 		matrix=new ImageMatrix();
 		matrix.populateMatrixImages(getResources(),4, R.drawable.monkey);
 		matrix.mockMatrixState();
+		gridAdapter=new ImageAdapter(this.getActivity(),this);
+		imageGrid.setAdapter(gridAdapter);
+		imageGrid.setOnTouchListener(this);
+	
 		
-		matrix.setViewsState(buildViewIdsArray());
 		
-		squareImage1=(ImageView)getView().findViewById(R.id.square1);
-		squareImage2=(ImageView)getView().findViewById(R.id.square2);
-		squareImage3=(ImageView)getView().findViewById(R.id.square3);
-		squareImage4=(ImageView)getView().findViewById(R.id.square4);
-		squareImage5=(ImageView)getView().findViewById(R.id.square5);
-		squareImage6=(ImageView)getView().findViewById(R.id.square6);
-		squareImage7=(ImageView)getView().findViewById(R.id.square7);
-		squareImage8=(ImageView)getView().findViewById(R.id.square8);
-		squareImage9=(ImageView)getView().findViewById(R.id.square9);
-		squareImage10=(ImageView)getView().findViewById(R.id.square10);
-		squareImage11=(ImageView)getView().findViewById(R.id.square11);
-		squareImage12=(ImageView)getView().findViewById(R.id.square12);
-		squareImage13=(ImageView)getView().findViewById(R.id.square13);
-		squareImage14=(ImageView)getView().findViewById(R.id.square14);
-		squareImage15=(ImageView)getView().findViewById(R.id.square15);
-		squareImage16=(ImageView)getView().findViewById(R.id.square16);
 		
-		squareImage1.setImageBitmap(matrix.getPictureInPosition(0));
-		squareImage2.setImageBitmap(matrix.getPictureInPosition(1));
-		squareImage3.setImageBitmap(matrix.getPictureInPosition(2));
-		squareImage4.setImageBitmap(matrix.getPictureInPosition(3));
-		squareImage5.setImageBitmap(matrix.getPictureInPosition(4));
-		squareImage6.setImageBitmap(matrix.getPictureInPosition(5));
-		squareImage7.setImageBitmap(matrix.getPictureInPosition(6));
-		squareImage8.setImageBitmap(matrix.getPictureInPosition(7));
-		squareImage9.setImageBitmap(matrix.getPictureInPosition(8));
-		squareImage10.setImageBitmap(matrix.getPictureInPosition(9));
-		squareImage11.setImageBitmap(matrix.getPictureInPosition(10));
-		squareImage12.setImageBitmap(matrix.getPictureInPosition(11));
-		squareImage13.setImageBitmap(matrix.getPictureInPosition(12));
-		squareImage14.setImageBitmap(matrix.getPictureInPosition(13));
-		squareImage15.setImageBitmap(matrix.getPictureInPosition(14));
 		
-		addCellListeners();
 	
 		
 	}
 	
-	private void swipeSquare(){
-		
-	}
+	
 
-	private void addCellListeners() {
-		
-		squareImage1.setOnTouchListener(this);
-		squareImage2.setOnTouchListener(this);
-		squareImage3.setOnTouchListener(this);
-		squareImage4.setOnTouchListener(this);
-		squareImage5.setOnTouchListener(this);
-		squareImage6.setOnTouchListener(this);
-		squareImage7.setOnTouchListener(this);
-		squareImage8.setOnTouchListener(this);
-		squareImage9.setOnTouchListener(this);
-		squareImage10.setOnTouchListener(this);
-		squareImage11.setOnTouchListener(this);
-		squareImage12.setOnTouchListener(this);
-		squareImage13.setOnTouchListener(this);
-		squareImage14.setOnTouchListener(this);
-		squareImage15.setOnTouchListener(this);
-		
-		
-	}
+	
 	
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		int positionSquareTouched=matrix.getViewsState().indexOf(v.getId());
-		lastSquareTouched=positionSquareTouched;
+		//int positionSquareTouched=matrix.getViewsState().indexOf(v.getId());
+		int colTouched=(int) (event.getX()/(v.getWidth()/matrix.getMatrixDimension()));
+		int rowTouched=(int) (event.getY()/(v.getHeight()/matrix.getMatrixDimension())+1);
+		lastSquareTouched=ImageMatrix.getVectorPosition(rowTouched, colTouched, matrix.getMatrixDimension());
 		lastViewTouched=v.getId();
-		String nextEmptyCell=matrix.getNextEmptyCell(positionSquareTouched);
+		String nextEmptyCell=matrix.getNextEmptyCell(lastSquareTouched);
 		if(nextEmptyCell.equals(Constants.UP)){
-			((ImageView)v).clearAnimation();
-			((ImageView)v).setAnimation(animDownToUp);
-			((ImageView)v).startAnimation(animDownToUp);
+			gridAdapter.getItem(lastSquareTouched).getclearAnimation();
+			v.setAnimation(animDownToUp);
+			v.startAnimation(animDownToUp);
 			lastMove=Constants.UP;
 			
 		}
 		else if(nextEmptyCell.equals(Constants.RIGHT)){
-			((ImageView)v).clearAnimation();
-			((ImageView)v).setAnimation(animLeftToRight);
-			((ImageView)v).startAnimation(animLeftToRight);
+			v.clearAnimation();
+			v.setAnimation(animLeftToRight);
+			v.startAnimation(animLeftToRight);
 			lastMove=Constants.RIGHT;
 		}
 		else if(nextEmptyCell.equals(Constants.DOWN)){
-			((ImageView)v).clearAnimation();
-			((ImageView)v).setAnimation(animUpToDown);
-			((ImageView)v).startAnimation(animUpToDown);
+			v.clearAnimation();
+			v.setAnimation(animUpToDown);
+			v.startAnimation(animUpToDown);
 			lastMove=Constants.DOWN;
 		}
 		else if(nextEmptyCell.equals(Constants.LEFT)){
-			((ImageView)v).clearAnimation();
-			((ImageView)v).setAnimation(animRightToLeft);
-			((ImageView)v).startAnimation(animRightToLeft);
+			v.clearAnimation();
+			v.setAnimation(animRightToLeft);
+			v.startAnimation(animRightToLeft);
 			lastMove=Constants.LEFT;
 		}
 		else{
-			//nothing to do
+			return false;
 		}
 		
 		return true;
 	}
 	
-	private List<Integer> buildViewIdsArray(){
-		List<Integer> viewIds=new ArrayList<Integer>();
-		viewIds.add(R.id.square1);
-		viewIds.add(R.id.square2);
-		viewIds.add(R.id.square3);
-		viewIds.add(R.id.square4);
-		viewIds.add(R.id.square5);
-		viewIds.add(R.id.square6);
-		viewIds.add(R.id.square7);
-		viewIds.add(R.id.square8);
-		viewIds.add(R.id.square9);
-		viewIds.add(R.id.square10);
-		viewIds.add(R.id.square11);
-		viewIds.add(R.id.square12);
-		viewIds.add(R.id.square13);
-		viewIds.add(R.id.square14);
-		viewIds.add(R.id.square15);
-		viewIds.add(R.id.square16);
-		return viewIds;
-		
-		
-	}
+	
 	
 	private void initAnimations() {
 		
