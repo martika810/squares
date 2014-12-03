@@ -42,8 +42,9 @@ public class ImageAdapter extends BaseAdapter {
 	        } else {
 	            imageView = (ImageView) convertView;
 	        }
-
-	        imageView.setImageBitmap(imageMatrix.getPictureInPosition(position));
+	        if(imageMatrix.getPictureInPosition(position)!=null){
+	        	imageView.setImageBitmap(imageMatrix.getPictureInPosition(position));
+	        }
 	        return imageView;
 	    }
 

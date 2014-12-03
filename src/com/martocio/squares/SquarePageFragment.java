@@ -25,22 +25,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 public class SquarePageFragment extends Fragment implements OnTouchListener, AnimationListener{
-	private ImageView squareImage1;
-	private ImageView squareImage2;
-	private ImageView squareImage3;
-	private ImageView squareImage4;
-	private ImageView squareImage5;
-	private ImageView squareImage6;
-	private ImageView squareImage7;
-	private ImageView squareImage8;
-	private ImageView squareImage9;
-	private ImageView squareImage10;
-	private ImageView squareImage11;
-	private ImageView squareImage12;
-	private ImageView squareImage13;
-	private ImageView squareImage14;
-	private ImageView squareImage15;
-	private ImageView squareImage16;
+	private GridView imageGrid;
 	private Animation animLeftToRight;
 	private Animation animRightToLeft;
 	private Animation animDownToUp;
@@ -80,7 +65,7 @@ public class SquarePageFragment extends Fragment implements OnTouchListener, Ani
 	
 	private void populateMatrix(){
 		
-		GridView imageGrid=(GridView)getView().findViewById(R.id.imageGrid);
+		imageGrid=(GridView)getView().findViewById(R.id.imageGrid);
 		
 		matrix=new ImageMatrix();
 		matrix.populateMatrixImages(getResources(),4, R.drawable.monkey);
@@ -109,29 +94,30 @@ public class SquarePageFragment extends Fragment implements OnTouchListener, Ani
 		lastSquareTouched=ImageMatrix.getVectorPosition(rowTouched, colTouched, matrix.getMatrixDimension());
 		lastViewTouched=v.getId();
 		String nextEmptyCell=matrix.getNextEmptyCell(lastSquareTouched);
+		View selectedView=((ViewGroup)v).getChildAt(lastSquareTouched);
 		if(nextEmptyCell.equals(Constants.UP)){
-			gridAdapter.getItem(lastSquareTouched).getclearAnimation();
-			v.setAnimation(animDownToUp);
-			v.startAnimation(animDownToUp);
+			selectedView.clearAnimation();
+			selectedView.setAnimation(animDownToUp);
+			selectedView.startAnimation(animDownToUp);
 			lastMove=Constants.UP;
 			
 		}
 		else if(nextEmptyCell.equals(Constants.RIGHT)){
-			v.clearAnimation();
-			v.setAnimation(animLeftToRight);
-			v.startAnimation(animLeftToRight);
+			selectedView.clearAnimation();
+			selectedView.setAnimation(animLeftToRight);
+			selectedView.startAnimation(animLeftToRight);
 			lastMove=Constants.RIGHT;
 		}
 		else if(nextEmptyCell.equals(Constants.DOWN)){
-			v.clearAnimation();
-			v.setAnimation(animUpToDown);
-			v.startAnimation(animUpToDown);
+			selectedView.clearAnimation();
+			selectedView.setAnimation(animUpToDown);
+			selectedView.startAnimation(animUpToDown);
 			lastMove=Constants.DOWN;
 		}
 		else if(nextEmptyCell.equals(Constants.LEFT)){
-			v.clearAnimation();
-			v.setAnimation(animRightToLeft);
-			v.startAnimation(animRightToLeft);
+			selectedView.clearAnimation();
+			selectedView.setAnimation(animRightToLeft);
+			selectedView.startAnimation(animRightToLeft);
 			lastMove=Constants.LEFT;
 		}
 		else{
@@ -167,28 +153,29 @@ public class SquarePageFragment extends Fragment implements OnTouchListener, Ani
 		// TODO Update the matrixState and maybe populate again
 		
 		Bitmap squareToMove=matrix.getPictureInPosition(lastSquareTouched);
-		int idViewTouched=matrix.getViewsState().get(lastSquareTouched);
-		int idTargetAnimationView=Constants.EMPTY_CELL;
-		((ImageView) getView().findViewById(idViewTouched)).setImageBitmap(null);
+		//int idViewTouched=matrix.getViewsState().get(lastSquareTouched);
+		((ImageView)imageGrid.getChildAt(lastSquareTouched)).setImageBitmap(null);
+		int posTargetView=Constants.EMPTY_CELL;
+		
 		
 		if(lastMove.equals(Constants.UP)){
-			idTargetAnimationView=matrix.getViewsState().get(lastSquareTouched-matrix.getMatrixDimension());
-			((ImageView) getView().findViewById(idTargetAnimationView)).setImageBitmap(squareToMove);
+			posTargetView=lastSquareTouched-matrix.getMatrixDimension();
+			
 		}
 		else if(lastMove.equals(Constants.RIGHT)){
-			idTargetAnimationView=matrix.getViewsState().get(lastSquareTouched+1);
+			posTargetView=lastSquareTouched+1;
 			
 		}
 		else if(lastMove.equals(Constants.DOWN)){
-			idTargetAnimationView=matrix.getViewsState().get(lastSquareTouched+matrix.getMatrixDimension());
+			posTargetView=lastSquareTouched+matrix.getMatrixDimension();
 			
 		}
 		else if(lastMove.equals(Constants.LEFT)){
-			idTargetAnimationView=matrix.getViewsState().get(lastSquareTouched+1);
+			posTargetView=lastSquareTouched+1;
 		}
 		else{}
-		if(idTargetAnimationView!=Constants.EMPTY_CELL){
-			((ImageView) getView().findViewById(idTargetAnimationView)).setImageBitmap(squareToMove);
+		if(posTargetView!=Constants.EMPTY_CELL && posTargetView<matrix.size()){
+			((ImageView)imageGrid.getChildAt(posTargetView)).setImageBitmap(squareToMove);
 			matrix.updateStateAfterSwipe(lastSquareTouched, lastMove);
 		}
 		

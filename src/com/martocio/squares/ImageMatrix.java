@@ -10,6 +10,7 @@ import com.martocio.squares.BitmapUtils.ScalingLogic;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 public class ImageMatrix {
 	
@@ -71,6 +72,7 @@ public class ImageMatrix {
 			}
 			
 		}
+		matrixImages.put(matrixDimension*matrixDimension-1, new Cell(matrixDimension*matrixDimension-1,null));//empty square
 		
 	}
 	
@@ -79,26 +81,26 @@ public class ImageMatrix {
 	public Bitmap getPictureInPosition(int pos){
 		int numCell=matrixState.get(pos);
 		Cell cell=matrixImages.get(new Integer(numCell));
+		System.out.println("squares pos:"+pos+" cell:"+cell.getId());
 		return cell.getPicture();
 	}
 	public void mockMatrixState(){
 		
-		matrixState.add(new Integer(3));
-		matrixState.add(new Integer(15));
-		matrixState.add(new Integer(1));
-		matrixState.add(new Integer(14));
-		matrixState.add(new Integer(2));
-		matrixState.add(new Integer(13));
-		matrixState.add(new Integer(4));
-		matrixState.add(new Integer(12));
-		matrixState.add(new Integer(5));
-		matrixState.add(new Integer(11));
-		matrixState.add(new Integer(6));
-		matrixState.add(new Integer(10));
-		matrixState.add(new Integer(7));
-		matrixState.add(new Integer(9));
-		matrixState.add(new Integer(3));
-		matrixState.add(new Integer(Constants.EMPTY_CELL));
+		matrixState.add(new Integer(3));//0
+		matrixState.add(new Integer(1));//1
+		matrixState.add(new Integer(14));//2
+		matrixState.add(new Integer(2));//3
+		matrixState.add(new Integer(13));//4
+		matrixState.add(new Integer(4));//5
+		matrixState.add(new Integer(12));//6
+		matrixState.add(new Integer(5));//7
+		matrixState.add(new Integer(11));//9
+		matrixState.add(new Integer(6));//10
+		matrixState.add(new Integer(10));//11
+		matrixState.add(new Integer(7));//12
+		matrixState.add(new Integer(9));//13
+		matrixState.add(new Integer(0));//14
+		matrixState.add(new Integer(15));//15
 		
 	}
 	
@@ -160,16 +162,13 @@ public class ImageMatrix {
 	}
 	public void updateStateAfterSwipe(int posSquareTouched,String direction){
 		int posTargetSquare=getTargetPosition(posSquareTouched, direction);
+		
 		//swap the cell in matrixState
 		int cellTouched=matrixState.get(posSquareTouched);
 		int cellTarget=matrixState.get(posTargetSquare);
 		matrixState.add(posTargetSquare, cellTouched);
 		matrixState.add(posSquareTouched,cellTarget);
-		//swap viewState array
-		int viewTouched=viewsState.get(posSquareTouched);
-		int viewTarget=viewsState.get(posTargetSquare);
-		viewsState.add(posSquareTouched,viewTarget );
-		viewsState.add(posTargetSquare,viewTouched);
+		
 		
 	}
 
@@ -187,6 +186,10 @@ public class ImageMatrix {
 			return positionTouched-1;
 		}
 		return Constants.EMPTY_CELL;
+	}
+	
+	public int size(){
+		return matrixDimension*matrixDimension;
 	}
 	
 	
