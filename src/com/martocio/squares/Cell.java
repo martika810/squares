@@ -23,6 +23,11 @@ public class Cell {
 	public void setPicture(Bitmap picture) {
 		this.picture = picture;
 	}
+	@Override
+	public boolean equals(Object another) {
+		
+		return this.id==((Cell)another).getId() && this.picture==((Cell)another).getPicture();
+	}
 	
 
 }

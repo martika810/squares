@@ -20,7 +20,7 @@ public class ImageAdapter extends BaseAdapter {
 	    }
 
 	    public int getCount() {
-	        return imageMatrix.getMatrixDimension()*imageMatrix.getMatrixDimension()-1;
+	        return imageMatrix.getMatrixDimension()*imageMatrix.getMatrixDimension();
 	    }
 
 	    public Object getItem(int position) {
@@ -35,8 +35,9 @@ public class ImageAdapter extends BaseAdapter {
 	    public View getView(int position, View convertView, ViewGroup parent) {
 	        ImageView imageView;
 	        if (convertView == null) {  // if it's not recycled, initialize some attributes
+	        	
 	            imageView = new ImageView(mContext);
-	            imageView.setLayoutParams(new GridView.LayoutParams(LayoutParams.MATCH_PARENT, 100));
+	            imageView.setLayoutParams(new GridView.LayoutParams(LayoutParams.MATCH_PARENT, parent.getWidth()/4));
 	            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 	            imageView.setPadding(0, 0, 0, 0);
 	        } else {
