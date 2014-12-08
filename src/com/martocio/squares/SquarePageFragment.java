@@ -160,7 +160,10 @@ public class SquarePageFragment extends Fragment implements OnTouchListener,
 		int posTargetView = matrix.getTargetPosition(lastSquareTouched, lastMove);
 		
 		
-		boolean notMatrixAlreadyUpdated=matrix.getPictureInPosition(posTargetView)==null;
+		boolean notMatrixAlreadyUpdated=false;
+		if(posTargetView != Constants.EMPTY_CELL){
+			notMatrixAlreadyUpdated=matrix.getPictureInPosition(posTargetView)==null;
+		}
 		if (posTargetView != Constants.EMPTY_CELL
 				&& !lastMove.equals(Constants.NO_CELL)
 				&& posTargetView < matrix.size()  && notMatrixAlreadyUpdated) {

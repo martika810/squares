@@ -83,7 +83,7 @@ public class ImageMatrix {
 	}
 
 	public Bitmap getPictureInPosition(int pos) {
-		if (pos < -1 && pos >= size()) {
+		if (!validIndex(pos)) {
 			throw new RuntimeException("ImageMatrix:getPictureInPosition:Index Out");
 		}
 			int numCell = matrixState.get(pos);
