@@ -11,7 +11,18 @@ public class SquarePagerAdapter extends FragmentStatePagerAdapter{
 	}
 	@Override
 	public Fragment getItem(int position){
-		return new SquarePageFragment();
+		Fragment fragmentToReturn=null;
+		switch(position){
+		case 0:
+			fragmentToReturn=new SquareIniPageFragment();
+			break;
+		
+		case 1:
+			fragmentToReturn=new SquarePageFragment();
+			break;
+		}
+		
+		return fragmentToReturn;
 	}
 	
 	@Override

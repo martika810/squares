@@ -19,6 +19,7 @@ public class MainActivity extends FragmentActivity{
 
 	private ViewPager mPager;
 	private PagerAdapter mPagerAdapter;
+	private String currentSelectedImage;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,6 +39,19 @@ public class MainActivity extends FragmentActivity{
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+
+	public ViewPager getmPager() {
+		return mPager;
+	}
+
+	public String getCurrentSelectedImage() {
+		return currentSelectedImage;
+	}
+
+	public void setCurrentSelectedImage(String currentSelectedImage) {
+		this.currentSelectedImage = currentSelectedImage;
+		mPagerAdapter.notifyDataSetChanged();
 	}
 
 	@Override

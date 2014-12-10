@@ -70,7 +70,9 @@ public class SquarePageFragment extends Fragment implements OnTouchListener,
 		imageGrid = (GridView) getView().findViewById(R.id.imageGrid);
 
 		matrix = new ImageMatrix();
-		matrix.populateMatrixImages(getResources(), 4, R.drawable.monkey);
+		//Grab the file from activity
+		String currentImageSelected=((MainActivity)getActivity()).getCurrentSelectedImage();
+		matrix.populateMatrixImages(getResources(), 4, currentImageSelected);
 		matrix.mockMatrixState();
 		gridAdapter = new ImageAdapter(this.getActivity(), this);
 		imageGrid.setAdapter(gridAdapter);

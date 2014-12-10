@@ -64,18 +64,31 @@ public class BitmapUtils {
 	        return scaledBitmap;
 	    }
 	 
-	 public static Bitmap decodeResource(Resources res, int resId, int dstWidth, int dstHeight,
+	 public static Bitmap decodeResource(Resources resources, int resId, int dstWidth, int dstHeight,
 	            ScalingLogic scalingLogic) {
 	        Options options = new Options();
 	        options.inJustDecodeBounds = true;
-	        BitmapFactory.decodeResource(res, resId, options);
+	        BitmapFactory.decodeResource(resources, resId, options);
 	        options.inJustDecodeBounds = false;
 	        options.inSampleSize = calculateSampleSize(options.outWidth, options.outHeight, dstWidth,
 	                dstHeight, scalingLogic);
-	        Bitmap unscaledBitmap = BitmapFactory.decodeResource(res, resId, options);
+	        Bitmap unscaledBitmap = BitmapFactory.decodeResource(resources, resId, options);
 
 	        return unscaledBitmap;
-	    }
+	 }
+	 
+	 public static Bitmap decodeFile(String path ,int dstWidth, int dstHeight,
+	            ScalingLogic scalingLogic) {
+	        Options options = new Options();
+	        options.inJustDecodeBounds = true;
+	        BitmapFactory.decodeFile(path, options);
+	        options.inJustDecodeBounds = false;
+	        options.inSampleSize = calculateSampleSize(options.outWidth, options.outHeight, dstWidth,
+	                dstHeight, scalingLogic);
+	        Bitmap unscaledBitmap = BitmapFactory.decodeFile(path, options);
+
+	        return unscaledBitmap;
+	 }
 	 
 	 public static int calculateSampleSize(int srcWidth, int srcHeight, int dstWidth, int dstHeight,
 	            ScalingLogic scalingLogic) {

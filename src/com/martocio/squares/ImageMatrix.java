@@ -1,5 +1,6 @@
 package com.martocio.squares;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,13 +50,19 @@ public class ImageMatrix {
 	}
 
 	public void populateMatrixImages(Resources resources, int matrixDimension,
-			int fullPictureId) {
+			String imagePath) {
 		this.matrixDimension = matrixDimension;
-		Bitmap srcBitmap = BitmapFactory.decodeResource(resources,
-				fullPictureId);
-		Bitmap unscaledBitmap = BitmapUtils.decodeResource(resources,
-				fullPictureId, srcBitmap.getWidth(), srcBitmap.getHeight(),
-				ScalingLogic.CROP);
+		Bitmap srcBitmap = extractBitmap(resources, imagePath);
+		Bitmap unscaledBitmap=null;
+		if (imagePath != null && !imagePath.isEmpty()) {
+			unscaledBitmap = BitmapUtils.decodeFile(imagePath,
+					srcBitmap.getWidth(), srcBitmap.getHeight(),
+					ScalingLogic.CROP);
+		} else {
+			unscaledBitmap = BitmapUtils.decodeResource(resources,
+					R.drawable.flower, srcBitmap.getWidth(), srcBitmap.getHeight(),
+					ScalingLogic.CROP);
+		}
 
 		int num_matrix_cells = matrixDimension * matrixDimension;
 		Bitmap squarePicture = makeImageSquare(unscaledBitmap);
@@ -82,18 +89,35 @@ public class ImageMatrix {
 
 	}
 
+	private Bitmap extractBitmap(Resources resources, String path) {
+		Bitmap srcBitmap = null;
+		
+		if (path != null && !path.isEmpty() && (new File(path).exists())) {
+			File imgFile = new File(path);
+			srcBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+		} else {
+			srcBitmap = BitmapFactory.decodeResource(resources,
+					R.drawable.flower);
+		}
+
+		return srcBitmap;
+
+	}
+
 	public Bitmap getPictureInPosition(int pos) {
 		if (!validIndex(pos)) {
-			throw new RuntimeException("ImageMatrix:getPictureInPosition:Index Out");
+			throw new RuntimeException(
+					"ImageMatrix:getPictureInPosition:Index Out");
 		}
-			int numCell = matrixState.get(pos);
-			Cell cell = matrixImages.get(new Integer(numCell));
-			System.out.println("squares pos:" + pos + " cell:" + cell.getId());
-			return cell.getPicture();
-		
+		int numCell = matrixState.get(pos);
+		Cell cell = matrixImages.get(new Integer(numCell));
+		System.out.println("squares pos:" + pos + " cell:" + cell.getId());
+		return cell.getPicture();
+
 	}
-	public boolean validIndex(int index){
-		return index>-1 && index<size();
+
+	public boolean validIndex(int index) {
+		return index > -1 && index < size();
 	}
 
 	public void mockMatrixState() {

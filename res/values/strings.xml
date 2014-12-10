@@ -2,7 +2,11 @@
 <resources>
 
     <string name="app_name">squares</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="pick_image">Pick Image</string>
+    <string name="start">Start</string>
+    <string name="x3">x3</string>
+    <string name="x4">x4</string>
+    <string name="x5">x5</string>
     <string name="action_settings">Settings</string>
 
 </resources>
