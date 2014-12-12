@@ -3,6 +3,7 @@ package com.martocio.squares;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.view.ViewGroup;
 
 public class SquarePagerAdapter extends FragmentStatePagerAdapter{
 	
@@ -29,6 +30,14 @@ public class SquarePagerAdapter extends FragmentStatePagerAdapter{
 	public int getCount(){
 		return 2;
 	}
+	
+	@Override
+	public int getItemPosition(Object object) {
+	
+		return POSITION_NONE;// this refresh the fragments when notifySetDataChange
+	}
+	
+	
 	
 
 }

@@ -5,7 +5,31 @@
     android:orientation="vertical"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-    android:paddingTop="120dp" >
+    android:paddingTop="50px" >
+
+    <FrameLayout
+        android:id="@+id/top_btn_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp" >
+
+        <com.martocio.squares.TouchHighlightImageButton
+            android:id="@+id/btn_see_solution"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginRight="1dp"
+            android:contentDescription="@string/see_solution"
+            android:scaleType="centerCrop"
+            android:src="@drawable/solution" />
+
+        <ImageView
+            android:id="@+id/expanded_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/touch_close"
+            android:visibility="invisible" />
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/centralpanel"

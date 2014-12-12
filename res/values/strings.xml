@@ -7,6 +7,8 @@
     <string name="x3">x3</string>
     <string name="x4">x4</string>
     <string name="x5">x5</string>
+    <string name="see_solution">Press to see original image</string>
+    <string name="touch_close">Touch to close</string>
     <string name="action_settings">Settings</string>
 
 </resources>
