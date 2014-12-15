@@ -21,7 +21,7 @@
             android:layout_marginRight="1dp"
             android:contentDescription="@string/see_solution"
             android:scaleType="centerCrop"
-            android:src="@drawable/solution" />
+            android:src="@drawable/selector_solution_btn" />
 
         <ImageView
             android:id="@+id/expanded_image"
@@ -33,15 +33,15 @@
 
     <LinearLayout
         android:id="@+id/centralpanel"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/black"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:paddingBottom="10px"
-        android:paddingLeft="10px"
-        android:paddingRight="10px"
-        android:paddingTop="10px" >
+        android:paddingBottom="5px"
+        android:paddingLeft="5px"
+        android:paddingRight="5px"
+        android:paddingTop="5px" >
 
         <GridView
             android:id="@+id/imageGrid"
@@ -55,5 +55,37 @@
             android:verticalSpacing="0dp" >
         </GridView>
     </LinearLayout>
+    <RelativeLayout 
+        android:id="@+id/panel_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="10dp">
+    <Button
+        android:id="@+id/play_btn"
+        android:background="@drawable/selector_play_btn"
+        android:layout_alignParentLeft="true"
+     
+        android:layout_width="48dp"
+        android:layout_height="48dp"/>
+    <Button
+        android:id="@+id/pause_btn"
+        android:background="@drawable/selector_pause_btn"
+        android:layout_alignParentLeft="true"
+        android:visibility="invisible"
+        android:layout_width="48dp"
+        android:layout_height="48dp"/>
+    <TextView 
+        android:id="@+id/timer_txt"
+        android:layout_alignParentRight="true"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:textSize="36dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>"
+        
+    </RelativeLayout>
 
 </LinearLayout>

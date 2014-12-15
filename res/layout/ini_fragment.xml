@@ -39,15 +39,17 @@
 
         <Button
             android:id="@+id/btn_pick_image"
-             android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:background="@drawable/gallery_icon"/>
+             android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/selector_gallery_btn"/>
 
         <Button
             android:id="@+id/btn_start"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:background="@drawable/start_icon" />
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/selector_start_btn" />
     </LinearLayout>
 
 </LinearLayout>

@@ -988,13 +988,25 @@ containing a value of this type.
         public static final int custom_btn=0x7f020057;
         public static final int flower=0x7f020058;
         public static final int gallery_icon=0x7f020059;
-        public static final int ic_launcher=0x7f02005a;
-        public static final int ic_launcher_1=0x7f02005b;
-        public static final int monkey=0x7f02005c;
-        public static final int solution=0x7f02005d;
-        public static final int square_background=0x7f02005e;
-        public static final int squares_ini=0x7f02005f;
-        public static final int start_icon=0x7f020060;
+        public static final int gallery_icon_hover=0x7f02005a;
+        public static final int ic_launcher=0x7f02005b;
+        public static final int ic_launcher_1=0x7f02005c;
+        public static final int monkey=0x7f02005d;
+        public static final int pause_icon=0x7f02005e;
+        public static final int pause_icon_hover=0x7f02005f;
+        public static final int play_icon=0x7f020060;
+        public static final int play_icon_hover=0x7f020061;
+        public static final int selector_gallery_btn=0x7f020062;
+        public static final int selector_pause_btn=0x7f020063;
+        public static final int selector_play_btn=0x7f020064;
+        public static final int selector_solution_btn=0x7f020065;
+        public static final int selector_start_btn=0x7f020066;
+        public static final int solution=0x7f020067;
+        public static final int solution_icon_hover=0x7f020068;
+        public static final int square_background=0x7f020069;
+        public static final int squares_ini=0x7f02006a;
+        public static final int start_icon=0x7f02006b;
+        public static final int start_icon_hover=0x7f02006c;
     }
     public static final class id {
         public static final int action_bar=0x7f05001c;
@@ -1008,7 +1020,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050024;
-        public static final int action_settings=0x7f050046;
+        public static final int action_settings=0x7f05004a;
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int always=0x7f05000b;
         public static final int beginning=0x7f050011;
@@ -1041,6 +1053,9 @@ containing a value of this type.
         public static final int never=0x7f050009;
         public static final int none=0x7f050010;
         public static final int normal=0x7f050000;
+        public static final int panel_btn=0x7f050046;
+        public static final int pause_btn=0x7f050048;
+        public static final int play_btn=0x7f050047;
         public static final int progress_circular=0x7f050018;
         public static final int progress_horizontal=0x7f050019;
         public static final int radio=0x7f05002f;
@@ -1062,6 +1077,7 @@ containing a value of this type.
         public static final int split_action_bar=0x7f05001e;
         public static final int submit_area=0x7f050039;
         public static final int tabMode=0x7f050002;
+        public static final int timer_txt=0x7f050049;
         public static final int title=0x7f05002b;
         public static final int top_action_bar=0x7f050020;
         public static final int top_btn_container=0x7f050042;

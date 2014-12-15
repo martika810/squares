@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import com.martocio.squares.BitmapUtils.ScalingLogic;
 
@@ -53,15 +54,15 @@ public class ImageMatrix {
 			String imagePath) {
 		this.matrixDimension = matrixDimension;
 		Bitmap srcBitmap = extractBitmap(resources, imagePath);
-		Bitmap unscaledBitmap=null;
+		Bitmap unscaledBitmap = null;
 		if (imagePath != null && !imagePath.isEmpty()) {
 			unscaledBitmap = BitmapUtils.decodeFile(imagePath,
 					srcBitmap.getWidth(), srcBitmap.getHeight(),
 					ScalingLogic.CROP);
 		} else {
 			unscaledBitmap = BitmapUtils.decodeResource(resources,
-					R.drawable.flower, srcBitmap.getWidth(), srcBitmap.getHeight(),
-					ScalingLogic.CROP);
+					R.drawable.flower, srcBitmap.getWidth(),
+					srcBitmap.getHeight(), ScalingLogic.CROP);
 		}
 
 		int num_matrix_cells = matrixDimension * matrixDimension;
@@ -91,7 +92,7 @@ public class ImageMatrix {
 
 	private Bitmap extractBitmap(Resources resources, String path) {
 		Bitmap srcBitmap = null;
-		
+
 		if (path != null && !path.isEmpty() && (new File(path).exists())) {
 			File imgFile = new File(path);
 			srcBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
@@ -116,6 +117,18 @@ public class ImageMatrix {
 
 	}
 
+	public boolean isMatrixResolved() {
+		int index = 0;
+		for (Integer cell : matrixState) {
+			if (cell != null && !cell.equals(new Integer(index))) {
+				return false;
+			}
+			index++;
+		}
+
+		return true;
+	}
+
 	public boolean validIndex(int index) {
 		return index > -1 && index < size();
 	}
@@ -137,6 +150,36 @@ public class ImageMatrix {
 		matrixState.add(new Integer(9));// 13
 		matrixState.add(new Integer(0));// 14
 		matrixState.add(new Integer(8));// 15
+		matrixState.add(new Integer(15));// 15
+
+	}
+
+	public void initMatrixState() {
+		List<Integer> arrayAllCells = new ArrayList<Integer>();
+		arrayAllCells.add(new Integer(3));// 0
+		arrayAllCells.add(new Integer(1));// 1
+		arrayAllCells.add(new Integer(14));// 2
+		arrayAllCells.add(new Integer(2));// 3
+		arrayAllCells.add(new Integer(13));// 4
+		arrayAllCells.add(new Integer(4));// 5
+		arrayAllCells.add(new Integer(12));// 6
+		arrayAllCells.add(new Integer(5));// 7
+		arrayAllCells.add(new Integer(11));// 8
+		arrayAllCells.add(new Integer(6));// 9
+		arrayAllCells.add(new Integer(10));// 10
+		arrayAllCells.add(new Integer(7));// 11
+		arrayAllCells.add(new Integer(9));// 12
+		arrayAllCells.add(new Integer(0));// 13
+		arrayAllCells.add(new Integer(8));// 14
+		
+
+		Random r = new Random();
+		while (arrayAllCells.size() > 0) {
+			int pickedCell = r.nextInt(arrayAllCells.size());
+			matrixState.add(arrayAllCells.get(pickedCell));
+			arrayAllCells.remove(pickedCell);
+		}
+		
 		matrixState.add(new Integer(15));// 15
 
 	}
